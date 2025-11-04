@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Aurynn brand variables */
+:root{
+  --base:#FAF7F2; --gold:#C7A46D; --sand:#D8CAB4; --sage:#BFCAB2; --ink:#484445;
+}
+
+body{ background:var(--base); color:var(--ink); }
