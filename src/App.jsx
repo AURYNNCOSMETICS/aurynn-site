@@ -27,7 +27,7 @@ export default function App() {
     },
     {
       id: "shampoo",
-      name: "AURŸNN Calming Peptide Shampoo",
+      name: "Calming Peptide Shampoo",
       subtitle: "De natuurlijke geur is subtiel en rustgevend — een moment van kalmte, elke dag opnieuw.",
       price: "€24,95",
       bullets: [
