@@ -141,8 +141,7 @@ export default function App() {
             Aurynn Collectie
           </h2>
           <p className="mt-3 text-[var(--ink)]/80 max-w-prose">
-            Start met twee zorgvuldig geselecteerde favorieten. Meer komt
-            binnenkort.
+            Probeer een van Aurynn's favorieten, en ontdek je nieuwe ik.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8">
