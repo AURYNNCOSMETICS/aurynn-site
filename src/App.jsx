@@ -26,14 +26,14 @@ export default function App() {
       url: "https://aurynn.myshopify.com/products/aurynn-aromatherapie-ketting-draagbare-geurdiffuser-rvs",
     },
     {
-      id: "brush",
-      name: "Siliconen Gezichtsborstel",
-      subtitle: "Zachte reiniging voor dagelijkse glow",
+      id: "shampoo",
+      name: "AURŸNN Calming Peptide Shampoo",
+      subtitle: "De natuurlijke geur is subtiel en rustgevend — een moment van kalmte, elke dag opnieuw.",
       price: "€24,95",
       bullets: [
-        "Dubbelzijdige textuur",
-        "Waterbestendig",
-        "Hygiënisch & duurzaam",
+        "Geschikt voor een gevoelige hoofdhuid",
+        "Verrijkt met Pea Peptides & Aloe Vera",
+        "Sulfaat- en siliconenvrij",
       ],
       image:
         "https://images.unsplash.com/photo-1616394584738-fc6e612b3cfe?q=80&w=1200&auto=format&fit=crop",
