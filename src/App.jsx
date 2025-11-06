@@ -12,14 +12,14 @@ export default function App() {
 
   const products = [
     {
-      id: "necklace",
-      name: "Aromatherapie-ketting",
-      subtitle: "Draagbare geurdiffuser in roestvrij staal",
-      price: "€27,95",
+      id: "hand wash",
+      name: "Revitalising Hand & Body Wash",
+      subtitle: "Ervaar een moment van rust, telkens wanneer je je handen wast.",
+      price: "€19,95",
       bullets: [
-        "Verwisselbare geurpads",
-        "Hypoallergeen RVS",
-        "Cadeauverpakking optioneel",
+        "Zachte formule met plantaardige ingrediënten",
+        "Hydraterend en pH-neutraal",
+        "Luxe design – perfect voor badkamer of cadeau",
       ],
       image:
         "https://images.unsplash.com/photo-1523292562811-8fa7962a78c8?q=80&w=1200&auto=format&fit=crop",
