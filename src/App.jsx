@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 
-/** ---- Gedeelde data (merk + producten) ---- */
+/** Merk & producten (ongewijzigd) */
 const brand = {
   name: "AURŸNN",
   colors: { base: "#FAF7F2", gold: "#C7A46D", sand: "#D8CAB4", sage: "#BFCAB2", ink: "#484445" },
@@ -31,7 +31,7 @@ const products = [
   },
 ];
 
-/** ---- Gedeelde header ---- */
+/** Header met echte pagina-links */
 function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-[var(--base)]/80 border-b border-[var(--sand)]/60">
@@ -42,13 +42,11 @@ function SiteHeader() {
         <nav className="hidden md:flex gap-8 text-sm">
           <Link to="/shop" className="hover:text-[var(--gold)] transition">Collectie</Link>
           <Link to="/about" className="hover:text-[var(--gold)] transition">Ons verhaal</Link>
-          <a href="#faq" className="hover:text-[var(--gold)] transition">FAQ</a>
           <Link to="/contact" className="hover:text-[var(--gold)] transition">Contact</Link>
         </nav>
         <Link
           to="/shop"
           className="md:inline-flex hidden rounded-full border px-4 py-2 text-sm border-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold)] hover:text-white transition"
-          aria-label="Shop nu"
         >
           Shop nu
         </Link>
@@ -57,23 +55,45 @@ function SiteHeader() {
   );
 }
 
-/** ---- Homepage: jouw huidige content (ongewijzigd) ---- */
+/** Footer */
+function SiteFooter() {
+  return (
+    <footer className="border-t border-[var(--sand)]/60">
+      <div className="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-3 gap-8">
+        <div>
+          <div className="tracking-[0.25em] text-xl font-serif">{brand.name}</div>
+          <p className="mt-3 text-sm text-[var(--ink)]/70 max-w-sm">
+            Calm. Glow. Repeat. Wellness & beauty gifts for peaceful living.
+          </p>
+        </div>
+        <form
+          onSubmit={(e) => { e.preventDefault(); alert("Nieuwsbrief ingediend – koppel later aan e-mail provider."); }}
+          className="md:col-span-2"
+        >
+          <label className="text-sm text-[var(--ink)]/70">Nieuwsbrief</label>
+          <div className="mt-2 flex gap-3">
+            <input required placeholder="E-mailadres"
+              className="flex-1 rounded-full border border-[var(--sand)] bg-white/70 px-4 py-3 outline-none focus:border-[var(--gold)]" />
+            <button className="rounded-full bg-[var(--gold)] text-white px-6 py-3 text-sm hover:brightness-110">Inschrijven</button>
+          </div>
+        </form>
+      </div>
+      <div className="text-center text-xs text-[var(--ink)]/60 py-6">
+        © {new Date().getFullYear()} Aurynn. Alle rechten voorbehouden.
+      </div>
+    </footer>
+  );
+}
+
+/** Losse pagina’s */
 function Home() {
   return (
-    <main
-      className="min-h-screen w-full bg-[var(--base)] text-[var(--ink)]"
-      style={{
-        ["--base"]: brand.colors.base,
-        ["--gold"]: brand.colors.gold,
-        ["--sand"]: brand.colors.sand,
-        ["--sage"]: brand.colors.sage,
-        ["--ink"]: brand.colors.ink,
-      }}
-    >
+    <main className="min-h-screen w-full bg-[var(--base)] text-[var(--ink)]"
+      style={{["--base"]:brand.colors.base,["--gold"]:brand.colors.gold,["--sand"]:brand.colors.sand,["--sage"]:brand.colors.sage,["--ink"]:brand.colors.ink}}>
       <SiteHeader />
 
       {/* Hero */}
-      <section id="home" className="relative overflow-hidden">
+      <section className="relative overflow-hidden">
         <div className="mx-auto max-w-6xl px-4 py-24 md:py-28 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="text-4xl md:text-6xl font-serif tracking-widest leading-tight">
@@ -83,26 +103,17 @@ function Home() {
               Aurynn brengt welness en schoonheid samen in tijdloze, minimalistische producten. Betaalbare luxe voor je dagelijkse rituelen.
             </p>
             <div className="mt-8 flex gap-4">
-              <Link
-                to="/shop"
-                className="rounded-full bg-[var(--ink)] text-white px-6 py-3 text-sm tracking-wide hover:bg-[var(--gold)] transition"
-              >
+              <Link to="/shop" className="rounded-full bg-[var(--ink)] text-white px-6 py-3 text-sm tracking-wide hover:bg-[var(--gold)] transition">
                 Ontdek collectie
               </Link>
-              <Link
-                to="/about"
-                className="rounded-full border border-[var(--sand)] px-6 py-3 text-sm tracking-wide hover:border-[var(--gold)] transition"
-              >
+              <Link to="/about" className="rounded-full border border-[var(--sand)] px-6 py-3 text-sm tracking-wide hover:border-[var(--gold)] transition">
                 Lees ons verhaal
               </Link>
             </div>
           </div>
           <div className="relative aspect-[4/3] rounded-3xl border border-[var(--sand)] overflow-hidden shadow-sm">
-            <img
-              alt="Rustige lifestyle"
-              className="h-full w-full object-cover"
-              src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?q=80&w=1600&auto=format&fit=crop"
-            />
+            <img alt="Rustige lifestyle" className="h-full w-full object-cover"
+              src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?q=80&w=1600&auto=format&fit=crop" />
           </div>
         </div>
       </section>
@@ -117,41 +128,66 @@ function Home() {
         </div>
       </section>
 
-      {/* Product grid (ook gebruikt op /shop) */}
-      <Shop showHeader={false} />
+      {/* Een compacte collectie-teaser */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <h2 className="text-3xl md:text-4xl font-serif tracking-widest">Aurynn Collectie</h2>
+        <p className="mt-3 text-[var(--ink)]/80 max-w-prose">Probeer een van Aurynn's favorieten, en ontdek je nieuwe ik.</p>
+        <div className="grid md:grid-cols-2 gap-8 mt-8">
+          {products.map((p) => (
+            <article key={p.id} className="group rounded-3xl border border-[var(--sand)] overflow-hidden shadow-sm bg-white">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img src={p.image} alt={p.name} className="h-full w-full object-cover group-hover:scale-[1.02] transition" />
+              </div>
+              <div className="p-6 md:p-8">
+                <h3 className="text-2xl font-serif tracking-wide">{p.name}</h3>
+                <p className="mt-1 text-[var(--ink)]/70">{p.subtitle}</p>
+                <ul className="mt-4 space-y-1 text-sm text-[var(--ink)]/80">
+                  {p.bullets.map((b, i) => <li key={i}>• {b}</li>)}
+                </ul>
+                <div className="mt-6 flex items-center justify-between">
+                  <span className="text-lg font-medium">{p.price}</span>
+                  <div className="flex gap-3">
+                    <a href={p.url} target="_blank" rel="noopener noreferrer"
+                       className="rounded-full bg-[var(--gold)] text-white px-5 py-2 text-sm hover:brightness-110 transition">Koop nu</a>
+                    <a href={p.url} target="_blank" rel="noopener noreferrer"
+                       className="rounded-full border border-[var(--sand)] px-5 py-2 text-sm hover:border-[var(--gold)] transition">Bekijk</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8">
+          <Link to="/shop" className="inline-block rounded-full border border-[var(--gold)] px-6 py-3 text-sm hover:bg-[var(--gold)] hover:text-white transition">
+            Bekijk alle producten
+          </Link>
+        </div>
+      </section>
 
       {/* Story */}
-      <section id="verhaal" className="bg-[var(--base)]">
+      <section className="bg-[var(--base)]">
         <div className="mx-auto max-w-6xl px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
           <div className="order-last md:order-first">
             <div className="relative aspect-[4/3] rounded-3xl border border-[var(--sand)] overflow-hidden">
-              <img
-                alt="Zachte materialen en kalme styling"
-                className="h-full w-full object-cover"
-                src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop"
-              />
+              <img alt="Zachte materialen en kalme styling" className="h-full w-full object-cover"
+                src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop" />
             </div>
           </div>
           <div>
             <h2 className="text-3xl md:text-4xl font-serif tracking-widest">Ons verhaal</h2>
             <p className="mt-4 text-[var(--ink)]/80 leading-relaxed">
-              Bij Aurynn geloven we dat kleine rituelen het verschil maken. Met een focus op rustige esthetiek, prettige
-              materialen en zorgvuldige details brengen we producten die je helpen vertragen — elke dag opnieuw.
+              Bij Aurynn geloven we dat kleine rituelen het verschil maken. Met een focus op rustige esthetiek, prettige materialen en zorgvuldige details brengen we producten die je helpen vertragen — elke dag opnieuw.
             </p>
             <div className="mt-6 flex gap-3">
-              <Link to="/shop" className="rounded-full bg-[var(--ink)] text-white px-6 py-3 text-sm tracking-wide hover:bg-[var(--gold)] transition">
-                Shop de collectie
-              </Link>
-              <Link to="/contact" className="rounded-full border border-[var(--sand)] px-6 py-3 text-sm tracking-wide hover:border-[var(--gold)] transition">
-                Contact
-              </Link>
+              <Link to="/shop" className="rounded-full bg-[var(--ink)] text-white px-6 py-3 text-sm tracking-wide hover:bg-[var(--gold)] transition">Shop de collectie</Link>
+              <Link to="/contact" className="rounded-full border border-[var(--sand)] px-6 py-3 text-sm tracking-wide hover:border-[var(--gold)] transition">Contact</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-5xl px-4 py-20">
+      {/* FAQ (alleen teaser op home) */}
+      <section className="mx-auto max-w-5xl px-4 py-20">
         <h2 className="text-3xl md:text-4xl font-serif tracking-widest">Veelgestelde vragen</h2>
         <div className="mt-8 divide-y divide-[var(--sand)]/70">
           {[
@@ -175,51 +211,49 @@ function Home() {
   );
 }
 
-/** ---- Shop pagina (alleen productgrid) ---- */
-function Shop({ showHeader = true }) {
+function ShopPage() {
   return (
-    <section id="collectie" className={`mx-auto max-w-6xl px-4 py-20 ${showHeader ? "" : ""}`}>
-      {showHeader && (
-        <div className="mb-10">
-          <h2 className="text-3xl md:text-4xl font-serif tracking-widest">Aurynn Collectie</h2>
-          <p className="mt-3 text-[var(--ink)]/80 max-w-prose">
-            Probeer een van Aurynn's favorieten, en ontdek je nieuwe ik.
-          </p>
-        </div>
-      )}
-      <div className="grid md:grid-cols-2 gap-8">
-        {products.map((p) => (
-          <article key={p.id} className="group rounded-3xl border border-[var(--sand)] overflow-hidden shadow-sm bg-white">
-            <div className="aspect-[4/3] overflow-hidden">
-              <img src={p.image} alt={p.name} className="h-full w-full object-cover group-hover:scale-[1.02] transition" />
-            </div>
-            <div className="p-6 md:p-8">
-              <h3 className="text-2xl font-serif tracking-wide">{p.name}</h3>
-              <p className="mt-1 text-[var(--ink)]/70">{p.subtitle}</p>
-              <ul className="mt-4 space-y-1 text-sm text-[var(--ink)]/80">
-                {p.bullets.map((b, i) => <li key={i}>• {b}</li>)}
-              </ul>
-              <div className="mt-6 flex items-center justify-between">
-                <span className="text-lg font-medium">{p.price}</span>
-                <div className="flex gap-3">
-                  <a href={p.url} target="_blank" rel="noopener noreferrer"
-                     className="rounded-full bg-[var(--gold)] text-white px-5 py-2 text-sm hover:brightness-110 transition">Koop nu</a>
-                  <a href={p.url} target="_blank" rel="noopener noreferrer"
-                     className="rounded-full border border-[var(--sand)] px-5 py-2 text-sm hover:border-[var(--gold)] transition">Bekijk</a>
+    <main className="bg-[var(--base)] text-[var(--ink)] min-h-screen"
+      style={{["--base"]:brand.colors.base,["--gold"]:brand.colors.gold,["--sand"]:brand.colors.sand,["--sage"]:brand.colors.sage,["--ink"]:brand.colors.ink}}>
+      <SiteHeader />
+      <section className="mx-auto max-w-6xl px-4 py-20">
+        <h1 className="text-3xl md:text-4xl font-serif tracking-widest">Aurynn Collectie</h1>
+        <p className="mt-3 text-[var(--ink)]/80 max-w-prose">Probeer een van Aurynn's favorieten, en ontdek je nieuwe ik.</p>
+        <div className="grid md:grid-cols-2 gap-8 mt-8">
+          {products.map((p) => (
+            <article key={p.id} className="group rounded-3xl border border-[var(--sand)] overflow-hidden shadow-sm bg-white">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img src={p.image} alt={p.name} className="h-full w-full object-cover group-hover:scale-[1.02] transition" />
+              </div>
+              <div className="p-6 md:p-8">
+                <h3 className="text-2xl font-serif tracking-wide">{p.name}</h3>
+                <p className="mt-1 text-[var(--ink)]/70">{p.subtitle}</p>
+                <ul className="mt-4 space-y-1 text-sm text-[var(--ink)]/80">
+                  {p.bullets.map((b, i) => <li key={i}>• {b}</li>)}
+                </ul>
+                <div className="mt-6 flex items-center justify-between">
+                  <span className="text-lg font-medium">{p.price}</span>
+                  <div className="flex gap-3">
+                    <a href={p.url} target="_blank" rel="noopener noreferrer"
+                       className="rounded-full bg-[var(--gold)] text-white px-5 py-2 text-sm hover:brightness-110 transition">Koop nu</a>
+                    <a href={p.url} target="_blank" rel="noopener noreferrer"
+                       className="rounded-full border border-[var(--sand)] px-5 py-2 text-sm hover:border-[var(--gold)] transition">Bekijk</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+            </article>
+          ))}
+        </div>
+      </section>
+      <SiteFooter />
+    </main>
   );
 }
 
-/** ---- About pagina ---- */
-function About() {
+function AboutPage() {
   return (
-    <main className="min-h-screen bg-[var(--base)] text-[var(--ink)]">
+    <main className="min-h-screen bg-[var(--base)] text-[var(--ink)]"
+      style={{["--base"]:brand.colors.base,["--gold"]:brand.colors.gold,["--sand"]:brand.colors.sand,["--sage"]:brand.colors.sage,["--ink"]:brand.colors.ink}}>
       <SiteHeader />
       <section className="mx-auto max-w-4xl px-6 py-20 text-center">
         <h1 className="text-4xl font-serif tracking-widest">Ons Verhaal</h1>
@@ -233,62 +267,34 @@ function About() {
   );
 }
 
-/** ---- Contact pagina ---- */
-function Contact() {
+function ContactPage() {
   return (
-    <main className="min-h-screen bg-[var(--base)] text-[var(--ink)]">
+    <main className="min-h-screen bg-[var(--base)] text-[var(--ink)]"
+      style={{["--base"]:brand.colors.base,["--gold"]:brand.colors.gold,["--sand"]:brand.colors.sand,["--sage"]:brand.colors.sage,["--ink"]:brand.colors.ink}}>
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h1 className="text-3xl font-serif tracking-widest">Contact</h1>
-        <p className="mt-4 text-[var(--ink)]/80">Mail ons op <a className="underline" href="mailto:support@aurynn.nl">support@aurynn.nl</a></p>
+        <p className="mt-4 text-[var(--ink)]/80">
+          Mail ons op <a className="underline" href="mailto:support@aurynn.nl">support@aurynn.nl</a>
+        </p>
       </section>
       <SiteFooter />
     </main>
   );
 }
 
-/** ---- Footer ---- */
-function SiteFooter() {
-  return (
-    <footer id="contact" className="border-t border-[var(--sand)]/60">
-      <div className="mx-auto max-w-6xl px-4 py-12 grid md:grid-cols-3 gap-8">
-        <div>
-          <div className="tracking-[0.25em] text-xl font-serif">{brand.name}</div>
-          <p className="mt-3 text-sm text-[var(--ink)]/70 max-w-sm">
-            Calm. Glow. Repeat. Wellness & beauty gifts for peaceful living.
-          </p>
-        </div>
-        <form
-          onSubmit={(e) => { e.preventDefault(); alert("Nieuwsbrief ingediend – koppel later aan e-mail provider."); }}
-          className="md:col-span-2"
-        >
-          <label className="text-sm text-[var(--ink)]/70">Nieuwsbrief</label>
-          <div className="mt-2 flex gap-3">
-            <input required placeholder="E-mailadres"
-                   className="flex-1 rounded-full border border-[var(--sand)] bg-white/70 px-4 py-3 outline-none focus:border-[var(--gold)]" />
-            <button className="rounded-full bg-[var(--gold)] text-white px-6 py-3 text-sm hover:brightness-110">Inschrijven</button>
-          </div>
-        </form>
-      </div>
-      <div className="text-center text-xs text-[var(--ink)]/60 py-6">
-        © {new Date().getFullYear()} Aurynn. Alle rechten voorbehouden.
-      </div>
-    </footer>
-  );
-}
-
-/** ---- App met routes ---- */
+/** App met routes */
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<main style={{["--base"]:brand.colors.base,["--gold"]:brand.colors.gold,["--sand"]:brand.colors.sand,["--sage"]:brand.colors.sage,["--ink"]:brand.colors.ink}} className="bg-[var(--base)] text-[var(--ink)] min-h-screen"><SiteHeader /><Shop /><SiteFooter /></main>} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        {/* Backwards compat: /collectie -> /shop */}
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        {/* oude /collectie -> nieuwe /shop */}
         <Route path="/collectie" element={<Navigate to="/shop" replace />} />
-        {/* 404: terug naar home */}
+        {/* 404 terug naar home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
